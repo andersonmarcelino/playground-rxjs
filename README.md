@@ -2,13 +2,19 @@
 
 it contains the basic for run node back and front end
 
-To run the server
+to instal just run ``npm install``
+
+## To run the server do this commands parallely
 ````
-npm install
 gulp server:watch
 npm run nodemon <build/script>
 ````
 
+## To run the client do this commands parallely
+````
+gulp client:watch
+live-server public
+````
 
 
 
