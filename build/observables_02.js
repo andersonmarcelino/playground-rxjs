@@ -1,8 +1,10 @@
-"use strict";
+'use strict';
 
-var _Rx = require("rxjs/Rx");
+var _Rx = require('rxjs/Rx');
 
 var _Rx2 = _interopRequireDefault(_Rx);
+
+var _util = require('./lib/util.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10,7 +12,7 @@ function createInterval$(time) {
   return new _Rx2.default.Observable(function (observer) {
     var index = 0;
     var interval = setInterval(function () {
-      console.log("generating " + index);
+      console.log('generating ' + index);
       observer.next(index++);
     }, time);
 
@@ -18,20 +20,6 @@ function createInterval$(time) {
       return clearInterval(interval);
     };
   });
-}
-
-function createSubscriber(tag) {
-  return {
-    next: function next(item) {
-      console.log(tag + ".next " + item);
-    },
-    error: function error(_error) {
-      console.log(tag + ".error " + (_error.stack || _error));
-    },
-    complete: function complete() {
-      console.log(tag + ".complete");
-    }
-  };
 }
 
 function take$(sourceObservable$, amount) {
@@ -45,8 +33,8 @@ function take$(sourceObservable$, amount) {
           observer.complete();
         }
       },
-      error: function error(_error2) {
-        observer.error(_error2);
+      error: function error(_error) {
+        observer.error(_error);
       },
       complete: function complete() {
         observer.complete();
@@ -61,4 +49,4 @@ function take$(sourceObservable$, amount) {
 
 var everySecond$ = createInterval$(1000);
 var firstFiveSeconds$ = take$(everySecond$, 5);
-var subscription = firstFiveSeconds$.subscribe(createSubscriber("one"));
+var subscription = firstFiveSeconds$.subscribe((0, _util.createSubscriber)("one"));
